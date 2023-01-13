@@ -30,7 +30,6 @@ export default class UserServices {
     // return typeof localStorage.getItem("token")
   }
 
-  //Desafio ---> implemente um botão que chama essa função dentro da página Home
   async logout () {
     localStorage.removeItem("token")
     localStorage.removeItem("nome")
