@@ -1,14 +1,15 @@
-import React from 'react'
-import {InputCustomizado} from './styles'
+import React from "react";
+import { InputCustomizado } from "./styles";
 
-const Input = ({name, placeholder, onChange, type}) => {
+const Input = ({ name, placeholder, onChange, type }) => {
   return (
     <InputCustomizado
-    name={name}
-    placeholder={placeholder}
-    onChange={onChange}
-    type={type}/>
-  )
-}
+      name={name}
+      placeholder={placeholder}
+      onChange={onChange}
+      type={type}
+    />
+  );
+};
 
 export default Input;
