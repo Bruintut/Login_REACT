@@ -8,7 +8,7 @@ export default class UserServices {
   }
 
   async login(dados) {
-    const { data } = await this.axios.post("auth/AuthController_login", dados);
+    const { data } = await this.axios.post("/auth/AuthController_login", dados);
 
     if (data) {
       localStorage.setItem("name", data.user.name);
