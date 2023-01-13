@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Container, Form, SubContainerSign } from './styles'
 import Input from '../../Components/Input/index'
 import Botao from '../../Components/Botao/index'
-import { validarEmail, validarSenha, validarNome, validarConfirmarSenha } from '../../Utils/validadores'
+import { validarEmail, validarSenha, validarName, validarConfirmarSenha } from '../../Utils/validadores'
 import UserService from '../../Services/UserService'
 import { NavLink, useNavigate } from 'react-router-dom'
 
@@ -18,7 +18,7 @@ const Cadastro = () => {
     try {
       setLoading(true)
       const { data } = await userService.cadastrar({
-        nome: form.nome,
+        name: form.name,
         email: form.email,
         password: form.password,
       })
@@ -47,7 +47,7 @@ const Cadastro = () => {
     return validarEmail(form.email) 
     && validarSenha(form.password)
     && validarConfirmarSenha(form.password, form.confirmarPassword)
-    && validarNome(form.nome)
+    && validarName(form.name)
   }
 
   return (
@@ -55,8 +55,8 @@ const Cadastro = () => {
       <Form>
         <h1>Faça o seu Cadastro 👋</h1>
         <Input
-          name='nome'
-          placeholder='Digite o seu nome'
+          name='name'
+          placeholder='Digite o seu name'
           onChange={handleChange}
           type='text'
         />

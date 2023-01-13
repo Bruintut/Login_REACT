@@ -6,8 +6,8 @@ const validarEmail = (email) => {
     return senha?.toString().length > 6
   }
   
-  const validarNome = (nome) => {
-    return nome?.toString().length > 2
+  const validarName = (name) => {
+    return name?.toString().length > 2
   }
   
   const validarConfirmarSenha = (senha, confirmarSenha) => {
@@ -17,6 +17,6 @@ const validarEmail = (email) => {
   export {
     validarEmail,
     validarSenha,
-    validarNome,
+    validarName,
     validarConfirmarSenha
   }

@@ -11,7 +11,7 @@ export default class UserServices {
     const {data} = await this.axios.post('/login', dados)
 
     if (data) {
-      localStorage.setItem("nome", data.user.nome)
+      localStorage.setItem("name", data.user.name)
       localStorage.setItem("email", data.user.email)
       localStorage.setItem("token", data.token.token)
 
@@ -32,7 +32,7 @@ export default class UserServices {
 
   async logout () {
     localStorage.removeItem("token")
-    localStorage.removeItem("nome")
+    localStorage.removeItem("name")
     localStorage.removeItem("email")
   }
 }
