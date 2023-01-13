@@ -3,12 +3,12 @@ import axios from "axios";
 export default class UserServices {
   constructor() {
     this.axios = axios.create({
-      baseURL: process.env.REACT_APP_API_LOGIN + "/api",
+      baseURL: process.env.REACT_APP_API_LOGIN ,
     });
   }
 
   async login(dados) {
-    const { data } = await this.axios.post("/auth", dados);
+    const { data } = await this.axios.post("auth/AuthController_login", dados);
 
     if (data) {
       localStorage.setItem("name", data.user.name);
@@ -22,7 +22,7 @@ export default class UserServices {
   }
 
   async cadastrar(dados) {
-    return this.axios.post("/user", dados);
+    return this.axios.post("/user/UsersController_createUser", dados);
   }
 
   usuarioAutenticado() {
