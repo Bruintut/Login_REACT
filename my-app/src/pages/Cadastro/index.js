@@ -2,13 +2,13 @@ import React, {useState} from 'react'
 import { Container, Form, SubContainerSign } from './styles'
 import Input from '../../Components/Input/index'
 import Botao from '../../Components/Botao/index'
-import { validarEmail, validarSenha } from '../../Utils/validadores'
+import { validarEmail, validarSenha, validarNome, validarConfirmarSenha } from '../../Utils/validadores'
 import UserService from '../../Services/UserService'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 const userService = new UserService()
 
-const Login = () => {
+const Cadastro = () => {
   const [loading, setLoading] = useState()
   const [form, setForm] = useState([])
   const navigate = useNavigate()
@@ -17,16 +17,25 @@ const Login = () => {
     event.preventDefault();
     try {
       setLoading(true)
-      const response = await userService.login(form)
-      console.log('response do Login', response)
-      if (response === true) {
-        alert('usuário Logado com Sucesso')
-        navigate('/home')
-      }
+      const { data } = await userService.cadastrar({
+        nome: form.nome,
+        email: form.email,
+        password: form.password,
+      })
+      if (data) {
+        const responseLogin = await userService.login({
+          email: form.email,
+          password: form.password
+        })
+        if (responseLogin === true) {
+          alert('usuário Cadastrado com Sucesso')
+          navigate('/home')
+        }
+    }
       setLoading(false)
     }
     catch (err) {
-      alert('Algo deu errado com o Login' + err)
+      alert('Algo deu errado com o Cadastro' + err)
     }
   }
 
@@ -35,13 +44,22 @@ const Login = () => {
   }
 
   const validadorInput = () => {
-    return validarEmail(form.email) && validarSenha(form.password)
+    return validarEmail(form.email) 
+    && validarSenha(form.password)
+    && validarConfirmarSenha(form.password, form.confirmarPassword)
+    && validarNome(form.nome)
   }
 
   return (
     <Container>
       <Form>
-        <h1>Faça o seu Login 👋</h1>
+        <h1>Faça o seu Cadastro 👋</h1>
+        <Input
+          name='nome'
+          placeholder='Digite o seu nome'
+          onChange={handleChange}
+          type='text'
+        />
         <Input
           name='email'
           placeholder='Digite o seu e-mail'
@@ -54,15 +72,21 @@ const Login = () => {
           onChange={handleChange}
           type='password'
         />
+        <Input
+          name='confirmarPassword'
+          placeholder='Confirme a sua senha'
+          onChange={handleChange}
+          type='password'
+        />
         <Botao
           type='submit'
-          text='Entrar!'
+          text='Efetuar Cadastro!'
           onClick={handleSubmit}
           disabled={loading === true || !validadorInput()}
         />
         <SubContainerSign>
-          <p>Não possui conta?</p>
-          <NavLink to="cadastrar">Cadastrar</NavLink>
+          <p>Já possui conta?</p>
+          <NavLink to="*">Login</NavLink>
         </SubContainerSign>
       </Form>
     </Container>
@@ -70,4 +94,4 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default Cadastro;
